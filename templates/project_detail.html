@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="bg-dark pt-5 pb-5 fw-bolder text-light">
+    <div class="container">
+        <h2 class="text-center text-white mb-4">Project Details</h2>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb justify-content-center">
+                <li class="breadcrumb-item text-light"><a class="text-decoration-none" href="/">Home</a></li>
+                <li class="breadcrumb-item text-light">/</li>
+                <li class="breadcrumb-item active text-success">Project Details</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+
+
+<!-- ======= Project Details Section ======= -->
+
+<div class="my-5 py-5 pb-5">
+    <div class="container d-flex justify-content-center flex-wrap">
+
+        <div class="col-md-12 shadow-lg p-4 rounded">
+            <div class="carousel slide" data-bs-ride="carousel" id="carousel{{ project.id }}">
+                <div class="carousel-indicators">
+                    {% for image in images %}
+                    <button type="button" data-bs-target="#carousel{{ project.id }}"
+                        data-bs-slide-to="{{ forloop.counter0 }}" {% if forloop.first %}class="active"
+                        {% endif %}></button>
+                    {% endfor %}
+                </div>
+                <div class="carousel-inner">
+                    <!-- Use Django template tags to loop through project images -->
+                    {% for image in images %}
+                    <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                        <img src="{{ image.image.url }}" class="d-block w-100 img-carousel"
+                            alt="{{ project.project_name }}">
+                    </div>
+                    {% endfor %}
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carousel{{project.id}}"
+                    data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carousel{{project.id}}"
+                    data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="col-md-12 my-5 p-4">
+            <div class="project-details">
+                <h3 class="project-name"><strong>Project Name:</strong> {{ project.project_name }}</h3>
+                <ul class="list-unstyled project-info">
+                    <li class="my-2"><strong>Category:</strong> {{ project.project_type }}</li>
+                    <li class="my-2"><strong>Tech Stacks Used:</strong> {{ project.techstack | safe }}</li>
+                    <li class="my-2"><strong>Pages Contained:</strong> {{ project.pages | safe }}</li>
+                    <li class="my-2"><strong>Tags:</strong> {{ project.tags | safe }}</li>
+                    <li class="my-2"><strong>Project URL:</strong> <a href="{{ project.url }}"
+                            target="_blank">{{ project.url }}</a>
+                    </li>
+                    <li class="my-2"><strong>GitHub Repository:</strong> <a href="{{ project.github_repo }}"
+                            target="_blank">{{ project.github_repo }}</a></li>
+                    <li class="my-2"><strong>Project Date:</strong> {{ project.project_date|date:"d F, Y" }}</li>
+                </ul>
+            </div>
+            <div class="project-description my-2 py-2">
+                <h2>Project Description:</h2>
+                <p>
+                    {{ project.description | safe }}
+                </p>
+            </div>
+            <div class="project-more my-2 py-2">
+                <h2>More About the Project:</h2>
+                <p>
+                    {{ project.moreabout | safe }}
+                </p>
+            </div>
+        </div>
+
+    </div>
+</div><!-- End Project Details Section -->
+{% endblock content %}

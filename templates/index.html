@@ -1,0 +1,389 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+    /* Style for the typing container */
+    .typing-container {
+        text-align: center;
+        padding: 100px;
+    }
+
+    /* Style for the text */
+    .typed-text {
+        font-size: 36px;
+        font-weight: bold;
+        /* color: #333; */
+        white-space: nowrap;
+        overflow: hidden;
+        /* border-right: 3px solid #333; */
+        /* Cursor effect */
+    }
+
+    /* Style for the blinking cursor */
+    .cursor {
+        display: inline-block;
+        vertical-align: middle;
+        width: 8px;
+        height: 36px;
+        /* background-color: #333; */
+        animation: blink 0.7s infinite;
+        margin-left: 5px;
+    }
+
+    @keyframes blink {
+
+        0%,
+        100% {
+            opacity: 0;
+        }
+
+        50% {
+            opacity: 1;
+        }
+    }
+</style>
+<div
+    style="background-image: url('static/image/portfolio1.jpg'); background-size: cover; background-position: center center; min-height: 100vh; background-attachment: fixed;">
+    <div class="container d-flex flex-column justify-content-center align-items-center text-light fw-bold py-5 pb-5">
+        <div class="typing-container row justify-content-center my-5 py-5 pb-xxl-5" style="height: 10rem;">
+            <p class="text-center my-5">
+                <span class="typed-text text-wrap"></span>
+                <span class="cursor"></span>
+            </p>
+        </div>
+        <div class="d-flex justify-content-center">
+            <a class="btn btn-primary btn-sm" href="#about" role="button">Learn More</a>
+        </div>
+        <div class="col-md-4 justify-content-center my-5">
+            <div class="about-img">
+                <img src="{{ profile.profile_picture.url }}" class="img-fluid rounded-circle bg-warning"
+                    style="height: 400px;width: 400px;border-radius: 50%; overflow: hidden;" alt="Profile image">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- ======= About Section ======= -->
+<div id="about">
+    <div class="container my-4 py-5 pb-5">
+        <div class="row">
+            <h1 class="card-title text-center pb-5">About</h1>
+            <div class="col-sm-12">
+                <div class="shadow p-4 rounded">
+                    <div class="row justify-content-center">
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="col-sm-6 col-md-5 justify-content-center align-items-center">
+                                    <div class="about-img">
+                                        <img style="width: 8rem;height: 8rem;border-radius: 50%;"
+                                            src="{{ profile.profile_picture.url }}"
+                                            class="img-fluid rounded-circle bg-warning" alt="Profile image">
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 col-md-7">
+                                    <div class="about-info">
+                                        <p><span class="title-s">Name: </span> <span>{{ profile.first_name }}
+                                                {{ profile.last_name }}</span></p>
+                                        <p><span class="title-s">Profile: </span> <span>{{ profile.title }}</span></p>
+                                        <p><span class="title-s">Email: </span> <span>{{ profile.email }}</span></p>
+                                        <p><span class="title-s">Phone: </span> <span>{{ profile.phone }}</span></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="my-2">
+                                <h2 class="title">Programming & Technology</h2>
+                                <div class="mb-3">
+                                    <div class="d-flex flex-wrap">
+                                        <strong>Proficient : </strong>
+                                        {% for language in languages %}
+                                        <span class="mx-2">{{language.name}}</span>
+                                        {% endfor %}
+                                    </div>
+                                    <div class="d-flex flex-wrap">
+                                        <strong>Familiar : </strong>
+                                        {% for familiar in familiartech %}
+                                        <span class="mx-2">{{familiar.name}}</span>
+                                        {% endfor %}
+                                    </div>
+                                    <div class="d-flex flex-wrap">
+                                        <strong>Tools/Platforms : </strong>
+                                        {% for tool in toolPlatform %}
+                                        <span class="mx-2">{{tool.name}}</span>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-md-6">
+                            <div class="about-me pt-4 pt-md-0">
+                                <div class="title-box-2">
+                                    <h5 class="title-left">
+                                        About me
+                                    </h5>
+                                </div>
+                                <p class="lead">
+                                    {{ profile.about|safe }}
+                                </p>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div><!-- End About Section -->
+
+
+<!-- ======= Education Section ======= -->
+<div id="education">
+    <div class="container my-4 py-5 pb-5">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="row justify-content-center">
+                    <!-- Iterate through Education objects -->
+                    <h1 class="card-title text-center pb-5">Education</h1>
+                    {% for education in educations %}
+                    <div class="col-md-4 my-2">
+                        <div class="card h-100 shadow rounded">
+                            <img src="{{ education.image.url }}" class="card-img-top bg-secondary-subtle p-4"
+                                alt="Education image">
+                            <div class="card-body">
+                                <h3 class="card-text"><span class="title-s">Institution : </span>
+                                    {{ education.institution }}</h3>
+                                <p class="card-text"><span class="title-s">Degree : </span> {{ education.degree }}</p>
+                                <p class="card-text"><span class="title-s">Major : </span> {{ education.major }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div><!-- End Education Section -->
+
+
+
+<div class="container p-4">
+    <marquee direction="left" onmouseover="this.stop()" onmouseout="this.start()">
+        <div class="d-flex">
+
+            {% for language in languages %}
+            <div class="icon p-4"><img style="height: 144px; width: 144px;" src="{{ language.image.url }}"
+                    alt="{{language.name}}"></div>
+            {% endfor %}
+            {% for tool in toolPlatform %}
+            <div class="icon p-4"><img style="height: 144px; width: 144px;" src="{{ tool.image.url }}"
+                    alt="{{tool.name}}"></div>
+            {% endfor %}
+            <!-- Add more icons as needed -->
+        </div>
+    </marquee>
+</div>
+
+<!-- ======= Projects Carousel Section ======= -->
+<div id="projects" class="container my-4 py-5 pb-5">
+    <h1 class="text-center pb-5">Projects</h1>
+    <div class="container d-flex justify-content-center flex-wrap">
+
+        {% if projects %}
+
+
+        <div class="col-md-12 shadow-lg p-4 rounded">
+            <div class="carousel slide" data-bs-ride="carousel" id="carousel">
+                <div class="carousel-indicators">
+                    {% for project in projects %}
+                    <button type="button" data-bs-target="#carousel" data-bs-slide-to="{{ forloop.counter0 }}"
+                        {% if forloop.first %}class="active" {% endif %}></button>
+                    {% endfor %}
+                </div>
+                <div class="carousel-inner">
+                    <!-- Use Django template tags to loop through project images -->
+                    {% for project in projects %}
+                    <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                        <img src="{{ project.projectimage_set.first.image.url }}" class="d-block w-100 img-carousel"
+                            alt="{{ project.project_name }}">
+                        <div class="carousel-caption d-none d-md-block text-bg-dark bg-opacity-50">
+                            <h5>{{project.project_name|safe}}</h5>
+                            <p>{{project.project_type|safe}}</p>
+                            <p>{{project.techstack|safe}}</p>
+                            <a class="btn btn-primary btn-group-sm"
+                                href="{% url 'portfolio:project_detail' project.id %}">More</a>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <h1 class="text-center">Projects will be upload soon.</h1>
+    {% endif %}
+</div><!-- End Projects Carousel Section -->
+
+
+<!-- ======= Contact Section ======= -->
+<div id="contact" class="bg-image p-xxl-5 text-white" style="background-image: url('static/image/portfolio2.jpg')">
+    <div class="container-fluid bg-dark bg-opacity-50 my-5 py-5 pb-5 shadow rounded">
+        <div class="d-flex justify-content-center p-4">
+            <div class="col-sm-10">
+                <div class="contact-mf rounded">
+                    <div>
+                        <div class="row justify-content-center">
+                            <div class="col-md-6">
+                                <h2 class="title-left">Send Us a Message</h2>
+                                <form action="{% url 'portfolio:contact' %}" method="post" role="form"
+                                    id="contact-form">
+                                    {% csrf_token %}
+                                    <div class="mb-3">
+                                        <input type="text" name="name" class="form-control" placeholder="Your Name"
+                                            required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <input type="email" class="form-control" name="email" placeholder="Your Email"
+                                            required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <input type="text" class="form-control" name="subject" placeholder="Subject"
+                                            required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <textarea class="form-control" name="message" rows="5"
+                                            placeholder="Your Message" required></textarea>
+                                    </div>
+                                    <div class="row d-flex justify-content-center align-items-center">
+                                        <div id="loading" style="display: none;">
+                                            <div class="spinner-border text-success" role="status">
+                                                <span class="sr-only">Loading...</span>
+                                            </div>
+                                            <p>Sending...</p>
+                                        </div>
+
+                                        <div id="success-message" style="display: none;">
+                                            <div class="alert alert-success alert-dismissible fade show">
+                                                Your message has been sent successfully. We will get back to you soon.
+                                                <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <button type="submit" class="btn btn-success">Send Message</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div><!-- End Contact Section -->
+
+
+<script>
+    // Text to be typed
+    const textArray = ["I'm Moti Kumar Yadav.", "A fullstack web developer.", "I'm open to work for software developer role."];
+    let textIndex = 0;
+    let charIndex = 0;
+    const typingSpeed = 100; // Speed in milliseconds
+
+    function type() {
+        if (charIndex < textArray[textIndex].length) {
+            const typedText = document.querySelector('.typed-text');
+            typedText.textContent += textArray[textIndex].charAt(charIndex);
+            charIndex++;
+            setTimeout(type, typingSpeed);
+        } else {
+            setTimeout(erase, 1500); // Delay before erasing
+        }
+    }
+
+    function erase() {
+        if (charIndex > 0) {
+            const typedText = document.querySelector('.typed-text');
+            typedText.textContent = textArray[textIndex].substring(0, charIndex - 1);
+            charIndex--;
+            setTimeout(erase, typingSpeed / 2);
+        } else {
+            textIndex++;
+            if (textIndex >= textArray.length) {
+                textIndex = 0;
+            }
+            setTimeout(type, 500); // Delay before typing the next text
+        }
+    }
+
+    // Start the typing animation
+    setTimeout(type, 1500); // Initial delay before typing starts
+
+    document.addEventListener("DOMContentLoaded", function () {
+        var contactForm = document.getElementById("contact-form");
+        var loadingIndicator = document.getElementById("loading");
+        var successMessage = document.getElementById("success-message");
+
+        contactForm.addEventListener("submit", function (event) {
+            event.preventDefault(); // Prevent the form from submitting traditionally
+
+            // Show the loading indicator
+            loadingIndicator.style.display = "block";
+            successMessage.style.display = "none";
+
+            var formData = new FormData(contactForm);
+
+            // Create a Fetch request
+            fetch("{% url 'portfolio:contact' %}", {
+                method: "POST",
+                body: formData,
+                headers: {
+                    "X-Requested-With": "XMLHttpRequest",
+                    // Add any other headers if needed
+                },
+            })
+                .then(function (response) {
+                    if (response.ok) {
+                        return response.json(); // Parse JSON response
+                    } else {
+                        throw new Error("Network response was not ok.");
+                    }
+                })
+                .then(function (data) {
+                    if (data.success) {
+                        // Wait for 2 seconds (2000 milliseconds) before hiding the loading indicator
+                        setTimeout(function () {
+                            loadingIndicator.style.display = "none";
+                            successMessage.style.display = "block";
+                            // Reset the form
+                            contactForm.reset();
+                        }, 2000);
+                    } else {
+                        // Handle form validation errors if needed
+                        console.error("Form submission failed:", data.errors);
+                    }
+                })
+                .catch(function (error) {
+                    // Handle network errors, if needed
+                    console.error("Network error:", error);
+                });
+        });
+
+        // Close the success message when the close button is clicked
+        successMessage.querySelector(".close").addEventListener("click", function () {
+            successMessage.style.display = "none";
+        });
+    });
+</script>
+
+{% endblock content %}

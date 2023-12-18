@@ -1,0 +1,56 @@
+{% load static %}
+
+<style>
+  .navbar-brand {
+    font-size: 24px;
+    font-weight: bold;
+    color: #fff;
+    /* Text color */
+  }
+
+  .navbar-nav .nav-link {
+    color: #fff;
+    /* Text color */
+    font-size: 18px;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    /* Smooth color transition on hover */
+  }
+
+  .nav-link:hover,
+  .navbar-brand:hover {
+    color: #04eaa1;
+    /* Change to your preferred hover color */
+  }
+</style>
+
+<div class="bg-dark text-bg-dark fw-bold sticky-top">
+  <div class="d-flex justify-content-center">
+    <img src="{% static 'image/portfolio.gif' %}" alt="header image" style="width: 8rem;">
+  </div>
+  <nav class="navbar navbar-expand-lg container">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/">Moti</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent"> <!-- Change to justify-content-end -->
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="/">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#about">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#projects">Projects</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#contact">Contact</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</div>
